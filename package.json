@@ -1,0 +1,113 @@
+{
+  "name": "snaphunt-api",
+  "version": "1.0.1",
+  "description": "snaphunt backend",
+  "author": "XelpmocDesignandTechPvtLtd",
+  "license": "MIT",
+  "scripts": {
+    "dev-server": "cross-env nodemon --exec \"nodemon --exec NODE_ENV=development babel-node --inspect src\"",
+    "build": "babel -d ./build src",
+    "start-prod": "yarn run build  && pm2 startOrRestart ecosystem.config.js --env production ",
+    "start": "yarn run build  && pm2 startOrRestart ecosystem.config.js --env staging ",
+    "seed": "NODE_ENV=development jest --testPathIgnorePatterns=src/db/ --runInBand",
+    "test": "NODE_ENV=test jest --testPathIgnorePatterns=src/scripts/ --forceExit --runInBand",
+    "deploy": "pm2 deploy ecosystem.config.js staging --force",
+    "deploy-prod": "pm2 deploy ecosystem.config.js production --force",
+    "lint": "eslint 'src/**/*.js'",
+    "precommit": "lint-staged",
+    "fix-lint": "prettier --write './src/**/*.js' && npm run-script lint"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "testMatch": [
+      "**/?(*.)(spec|test).js"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testEnvironment": "node"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "fix-lint",
+      "test",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XelpmocDesignandTechPvtLtd/snaphunt-api.git"
+  },
+  "keywords": [
+    "backend",
+    "boilerplate"
+  ],
+  "bugs": {
+    "url": "https://github.com/XelpmocDesignandTechPvtLtd/snaphunt-api/issues"
+  },
+  "homepage": "https://github.com/XelpmocDesignandTechPvtLtd/snaphunt-api/blob/master/README.md",
+  "dependencies": {
+    "aws-sdk": "^2.192.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "bcryptjs": "^2.4.3",
+    "big.js": "^5.0.3",
+    "body-parser": "^1.18.2",
+    "compression": "1.7.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "country-data": "^0.0.31",
+    "cross-env": "5.1.4",
+    "crypto-js": "3.1.9-1",
+    "csv-parse": "^2.0.4",
+    "csv-stringify": "^3.0.0",
+    "dynamic-html-pdf": "0.0.4",
+    "express": "^4.16.1",
+    "express-force-ssl": "^0.3.2",
+    "express-request-language": "^1.1.12",
+    "handlebars": "^4.0.11",
+    "helmet": "3.12.0",
+    "html-pdf": "^2.2.0",
+    "husky": "^0.14.3",
+    "iso-currencies": "^1.1.0",
+    "jsonwebtoken": "^8.0.1",
+    "lint-staged": "^4.0.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.22.2",
+    "mongoose": "^5.0.0-rc2",
+    "nocache": "2.0.0",
+    "node-fetch": "^1.7.3",
+    "node-schedule": "1.3.0",
+    "nodemailer": "4.6.4",
+    "oauth-1.0a": "2.2.4",
+    "request": "2.85.0",
+    "stripe": "6.1.1",
+    "striptags": "^3.1.1",
+    "uuid": "^3.1.0",
+    "validator": "^9.2.0",
+    "winston": "^2.4.0",
+    "winston-aws-cloudwatch": "2.0.0",
+    "winston-daily-rotate-file": "3.1.3",
+    "xelpmoc_countries_cities": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "babel-jest": "^21.2.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "eslint": "^4.8.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "jest": "^21.2.1",
+    "nodemon": "^1.12.1",
+    "pm2": "^2.8.0",
+    "prettier": "^1.7.3"
+  }
+}
